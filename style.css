@@ -1,0 +1,145 @@
+/* CSS da página */
+
+body {
+  background-color: #000000;
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  text-justify: auto;
+
+}
+
+h1{
+  font-size: 70px;
+  color:  #FFFFFF;
+  font-family: Impact;
+  text-align:center;
+   padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+h2{
+  font-size: 30px;
+  color:  #7058BD;
+  font-family: Impact;
+  text-align:center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+h3{
+  font-size: 40px;
+  color:  #FFFFFF;
+  font-family: Impact;
+  text-align:center;
+   padding-top: 5px;
+  padding-bottom: 2px;
+}
+
+h6{
+  font-size: 20px;
+  color:  #000000;
+  text-align:center;
+   padding-top: 5px;
+  padding-bottom: 2px;
+}
+
+.topmargin {
+     margin-top: 3cm;
+  }
+  
+ .topmargin2 {
+     margin-top: 1.5cm;
+  }
+  
+ .dark-article {
+  padding: 15px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  background-color: #2C2157;
+  border-radius: 10px;
+  color: snow;
+}
+
+.viz {
+	width: 500px;
+	height: 500px;
+}
+
+.datetimething{
+	padding-bottom:10px;
+}
+
+.legend-ticks text {
+  font-size: 9px;
+  fill: black;
+}
+
+.menu {
+  display: flex;
+}
+.menu-option {
+  flex: 1;
+}
+.content {
+  display: none;
+}
+.content.show {
+  display: block;
+}
+
+/* reduce size from btn btn-link bootstrap */
+
+.btn { 
+  text-decoration: none;
+  color: black;
+}
+
+.iconscollap {
+  margin-right: 10px;
+}
+
+#accordion {
+  /* makes it have shadows */
+  /* important box shadow */
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.6); 
+}
+
+#l_smaller {
+  font-size: 0.7em;
+}
+.card {
+  /* makes it fully squared */
+  border-radius: 0;
+  /* remove shadows */
+}
+
+.modal-body {
+  color: #000000;
+}
+
+.modal-header {
+  padding:9px 15px;
+  border-bottom:1px solid #eee;
+  background-color: #7058BD;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.buttonup{
+  background-color: #7058BD;
+  color: #FFFFFF;
+  border: 3px;
+  border-radius: 5px;
+  border-color: #2C2157;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+}

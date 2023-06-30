@@ -1,0 +1,284 @@
+<!DOCTYPE html> 
+
+
+<html lang="pt-br">
+	<head>
+	<meta charset="UTF-8"/>
+    <!-- Compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+	<link href="style.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">    
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://demos.jquerymobile.com/1.4.2/js/jquery.js"></script>
+	<link rel="icon" href="chupeta.png">
+	<title> Você em dados </title>
+
+	</head>
+
+
+
+    <body>
+	<h1> Você em dados </h1>
+	<h2> Índice de Apgar no Rio de Janeiro </h2>
+
+	<div class="container">
+        <div class="row">
+			<div id="viz"></div>
+		</div>
+		<div class="row">
+			<!-- Slider for year selection -->
+			<input type="range" min="1998" max="2020" value="2020" class="slider" id="year">
+			<p> <span id="year-value"></span> </p>
+		</div>
+		<div class="row">
+			<div class="col-md-16">
+				<button type="button" id= "play-button" class="btn btn-primary"> Iniciar <span class="bi bi-play"></span></button>
+			</div>
+		</div>
+	</div>
+	
+<!-- Button trigger modal -->
+
+<div class="position-fixed top-0 start-0">
+<button type="button" class="btn btn-primary buttonup" data-toggle="modal" data-target="#infoModal1" id="infoButton">
+	Informações
+  </button>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="infoModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" style="color: #2C2157" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLongTitle">Informações sobre o mapa</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  O Índice de Apgar é um teste realizado em recém-nascidos para avaliar o seu estado de saúde. 
+		  <br>
+		  <br> 
+		  O mapa nesta página mostra a média do Índice de Apgar para cada cidade do Rio de Janeiro 
+		  entre 1998 e 2020. As cores de cada cidade variam de acordo com a média.
+		  <br>
+		  <br>
+		  Dê um click em "Iniciar" para iniciar o scroll e veja como a média do Índice de Apgar mudou ao longo dos anos
+		  nas cidades.
+		  <br>
+		  <br>
+		  Escolha um ano no slider e uma cidade de interesse e mantenha o cursor do mouse acima dela para ver a média do Índice de Apgar.
+		  Ao clicar na cidade, você será direcionado para a próxima visualização. Quando isso acontecer, clique novamente neste botão para
+		  obter novas informações.
+		  
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+
+  <div class="modal fade" id="infoModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" style="color: #2C2157" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLongTitle">Informações sobre o gráfico de barras</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  Esse gráfico permite que você observe a distribuição do Índice de Apgar de acordo com algumas características mais específicas. 
+		  Por exemplo, qual é a distribuição de bebês do sexo masculino? E feminino? Ou qual é a distribuição
+		  dos índices de bebês nascidos em partos normais? E em cesárias?
+		  <br>
+		  <br>
+		  Essas informações também permitem que você tente encontrar algum bebê que você conheça (inclusive você mesmo!). Insira as informações e 
+		  veja se você consegue limitar o gráfico a um único bebê. Se conseguir, você encontrou a criança que procurava!
+		  <br>
+		  <br>
+		  Lembre-se de se atentar à escala do eixo `y` para observar a contagem.
+
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+	<div class="dark-article">
+		<h3> Índice de Apgar </h3>
+		<p> <span id="data-value"></span> </p>
+		<div class="row">
+		
+		<div class="main-left col-md-6">
+		<div id="viz2"></div>
+		</div >
+		
+		<div class="main-right col-md-5 topmargin2" >
+			<div id="accordion">
+				<div class="card">
+				  <div class="card-header" id="headingOne">
+					<h5 class="mb-0">
+					  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+						<span class="iconscollap"><img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/36/null/external-gender-womens-day-flatart-icons-outline-flatarticons.png"/></span>
+						Sexo do bebê
+					  </button>
+					</h5>
+				  </div>
+			  
+				  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+					<div class="card-body">
+						<h6> Insira aqui seu sexo biológico: </h6>
+						<div class="d-flex justify-content-center">
+							<label for="inputSexo" class="form-label">Sexo</label>
+							<select id="inputSexo" class="form-select" style="width: 14rem">
+								<option selected>Sexo...</option>
+								<option	>Masculino</option>
+								<option>Feminino</option>
+							</select>
+						</div>
+					</div>
+				  </div>
+				</div>
+				<div class="card">
+				  <div class="card-header" id="headingTwo">
+					<h5 class="mb-0">
+					  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						<span class="iconscollap"><img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/36/null/external-weight-pregnancy-amp-maternity-icongeek26-outline-icongeek26.png"/></span>
+						Peso ao nascer
+					  </button>
+					</h5>
+				  </div>
+				  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+					<div class="card-body">
+						<h6> Insira aqui limites para seu peso ao nascer: </h6>
+						<div class="d-flex justify-content-center">
+							<div class="col-md-16">
+							<h6>Limite inferior</h6>
+							<form>
+								<input type="range" id="inputPesoMin1" name="amountRange" min="0" max="5000" value="0" oninput="this.form.amountInput.value=this.value" />
+								<input type="number" id = "inputPesoMin2" name="amountInput" min="0" max="5000" value="0"  style="width: 8rem" oninput="this.form.amountRange.value=this.value" />
+							</form>
+							</div>
+							<div class="col-md-16">
+							<h6>Limite superior</h6>
+							<form>
+								<input type="range" id="inputPesoMax1" name="amountRange" min="0" max="5000" value="5000" oninput="this.form.amountInput.value=this.value" />
+								<input type="number" id="inputPesoMax2" name="amountInput" min="0" max="5000" value="5000"  style="width: 8rem" oninput="this.form.amountRange.value=this.value" />
+							</form>
+							</div>
+						</div>
+					</div>
+				  </div>
+				</div>
+				<div class="card">
+				  <div class="card-header" id="headingThree">
+					<h5 class="mb-0">
+					  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						<span class="iconscollap"><img src="https://img.icons8.com/dotty/36/null/flying-stork-with-bundle.png"/></span>
+						Tipo de parto 
+					  </button>
+					</h5>
+				  </div>
+				  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+					<div class="card-body">
+						<h6> Insira aqui seu tipo de parto: </h6>
+						<div class="d-flex justify-content-center">
+							<label for="inputParto" class="form-label">Sexo</label>
+							<select id="inputParto" class="form-select" style="width: 14rem">
+							<option selected>Tipo de parto...</option>
+							<option>Cesárea</option>
+							<option>Vaginal</option>
+							</select>
+						</div>
+					</div>
+				  </div>
+				</div>
+				<div class="card">
+					<div class="card-header" id="headingThree">
+					  <h5 class="mb-0">
+						<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree" id = "l_smaller">
+						  <span class= "iconscollap"><img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/36/null/external-birthday-new-year-kiranshastry-lineal-kiranshastry.png"/></span>
+						  Data de Nascimento	
+						</button>
+					  </h5>
+					</div>
+					<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+					  <div class="card-body">
+						<h6> Insira aqui seu tipo de parto: </h6>
+						<label for="inputData"></label>
+						<input type="date" id="inputData" min = "1998-01-01" max = "2020-12-31">
+						<input type="submit">
+					  </div>
+					</div>
+				  </div>
+
+				  <div class="card">
+					<div class="card-header" id="headingFive">
+					  <h5 class="mb-0">
+						<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+						  <span class="iconscollap"><img src="https://img.icons8.com/carbon-copy/36/null/mother.png"/></span>
+						  Idade da mãe
+						</button>
+					  </h5>
+					</div>
+					<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+					  <div class="card-body">
+						  <h6> Insira aqui seu a idade da sua mãe no momento do parto: </h6>
+						  <div class="d-flex justify-content-center">
+							<div class="input-group w-auto">
+								<input
+								  id = "inputMae"
+								  type="text"
+								  class="form-control"
+								  placeholder="Idade da mãe"
+								  aria-label="Idade da mãe"
+								  aria-describedby="button-addon1"
+								/>
+								<button class="btn btn-primary" type="button" id="button-addon5">
+									Inserir
+								</button>
+							</div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				
+			</div>
+		</div >
+
+		<div class="row">
+			<div class="d-flex justify-content-center">
+				<div class="col-md-10">
+				<p>O Índice de Apgar é um teste realizado nos primeiros minutos de vida de um recém-nascido que permite vigiar a sua saúde global. O Apgar 1, avaliado aqui, é medido no primeiro minuto de vida de todos os brasileiros, e consiste principalmente em estimar a probabilidade da adaptação do bebê à vida fora do útero. </p>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+
+	<div class="row">
+		<p>Os dados utilizados são coletados pelo Ministério da Saúde e mantidos pela <a href="https://basedosdados.org/dataset/br-ms-sinasc?bdm_table=microdados">Base dos Dados</a>
+		
+	<img src="bd.png" height="20" width="40"></p>
+	</div>
+	
+	<script src="viz.js"></script>
+
+
+
+    </body>
+	
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
+
+
