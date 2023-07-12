@@ -1,3 +1,5 @@
+Co-autores: [Ana Carolina Erthal](https://github.com/anacarolerthal) e [Guilherme de Melo](https://github.com/guilherme-melo).
+
 ## Relatório 
 
 ### Introdução
